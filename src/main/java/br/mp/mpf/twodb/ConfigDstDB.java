@@ -1,5 +1,8 @@
 package br.mp.mpf.twodb;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
@@ -17,7 +20,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "dstEntityManagerFactory", transactionManagerRef = "dstTransactionManager", basePackages = "br.mp.mpf.twoDB.dstDB.repo")
+@EnableJpaRepositories(entityManagerFactoryRef = "dstEntityManagerFactory", transactionManagerRef = "dstTransactionManager", basePackages = "br.mp.mpf.twodb.dstDB.repo")
 public class ConfigDstDB {
 
 	@Bean(name = "dstDataSource")
@@ -28,14 +31,24 @@ public class ConfigDstDB {
 
 	@Bean(name = "dstEntityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean dstEntityManagerFactory(EntityManagerFactoryBuilder builder,
-			@Qualifier("dstDataSource") DataSource dataSource) {		
-		return builder.dataSource(dataSource).packages("br.mp.mp.twoDB.dstDB.domain").persistenceUnit("dstDB").build();
+			@Qualifier("dstDataSource") DataSource dataSource) {
+		return builder.dataSource(dataSource).packages("br.mp.mp.twoDB.dstDB.domain")
+				.properties(hibernateDefaultProperties()).persistenceUnit("dstDB").build();
 	}
 
 	@Bean(name = "dstTransactionManager")
 	public PlatformTransactionManager dstTransactionManager(
 			@Qualifier("dstEntityManagerFactory") EntityManagerFactory barEntityManagerFactory) {
 		return new JpaTransactionManager(barEntityManagerFactory);
+	}
+
+	public Map<String, ?> hibernateDefaultProperties() {
+		HashMap<String, Object> p = new HashMap<String, Object>();
+		p.put("hibernate.show_sql", true);
+		p.put("hibernate.format_sql", true);
+		p.put("hibernate.hbm2ddl.auto", "update");
+		return p;
+
 	}
 
 }

@@ -5,15 +5,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
+import br.mp.mpf.twodb.dstDB.domain.PessoaDestino;
 import br.mp.mpf.twodb.dstDB.repo.PessoaDestinoRepository;
 import br.mp.mpf.twodb.srcDB.repo.PessoaRepository;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-@ComponentScan(basePackageClasses = { PessoaRepository.class, PessoaDestinoRepository.class })
+@Import(value = { ConfigSrcDB.class, ConfigDstDB.class })
 public class TwodbApplication implements CommandLineRunner {
 
 	@Autowired
@@ -28,6 +28,6 @@ public class TwodbApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
+		pessoaDestinoRepository.save(new PessoaDestino());
 	}
 }
