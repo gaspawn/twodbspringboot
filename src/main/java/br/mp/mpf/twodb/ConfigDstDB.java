@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "dstEntityManagerFactory", transactionManagerRef = "dstTransactionManager", basePackages = "br.mp.mp.twoDB.dstDB.repo")
+@EnableJpaRepositories(entityManagerFactoryRef = "dstEntityManagerFactory", transactionManagerRef = "dstTransactionManager", basePackages = "br.mp.mpf.twoDB.dstDB.repo")
 public class ConfigDstDB {
 
 	@Bean(name = "dstDataSource")

@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory", basePackages = "br.mp.mpf.twodb.srcDB.repo")
+@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory", basePackages = "br.mp.mpf.twodb.srcDB.repo", transactionManagerRef = "transactionManager")
 public class ConfigSrcDB {
 
 	@Primary
