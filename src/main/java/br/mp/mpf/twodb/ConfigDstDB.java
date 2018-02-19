@@ -32,7 +32,7 @@ public class ConfigDstDB {
 	@Bean(name = "dstEntityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean dstEntityManagerFactory(EntityManagerFactoryBuilder builder,
 			@Qualifier("dstDataSource") DataSource dataSource) {
-		return builder.dataSource(dataSource).packages("br.mp.mp.twoDB.dstDB.domain")
+		return builder.dataSource(dataSource).packages("br.mp.mpf.twodb.dstDB.domain")
 				.properties(hibernateDefaultProperties()).persistenceUnit("dstDB").build();
 	}
 

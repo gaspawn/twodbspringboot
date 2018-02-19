@@ -13,7 +13,7 @@ import br.mp.mpf.twodb.srcDB.repo.PessoaRepository;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-@Import(value = { ConfigSrcDB.class, ConfigDstDB.class })
+//@Import(value = { ConfigSrcDB.class, ConfigDstDB.class })
 public class TwodbApplication implements CommandLineRunner {
 
 	@Autowired
