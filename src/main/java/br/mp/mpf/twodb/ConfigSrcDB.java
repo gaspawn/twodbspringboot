@@ -19,6 +19,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import br.mp.mpf.twodb.srcDB.domain.Pessoa;
+
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory", basePackages = "br.mp.mpf.twodb.srcDB.repo", transactionManagerRef = "transactionManager")
@@ -37,7 +39,9 @@ public class ConfigSrcDB {
 			@Qualifier("dataSource") DataSource dataSource) {
 		// return
 		// builder.dataSource(dataSource).packages("br.mp.mpf.twodb.srcDB.domain").persistenceUnit("srcDB").build();
-		return builder.dataSource(dataSource).packages("br.mp.mpf.twodb.srcDB.domain")
+		return builder.dataSource(dataSource)
+				//.packages("br.mp.mpf.twodb.srcDB.domain")
+				.packages(Pessoa.class)
 				.properties(hibernateDefaultProperties()).persistenceUnit("srcDB").build();
 	}
 

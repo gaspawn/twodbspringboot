@@ -18,6 +18,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import br.mp.mpf.twodb.dstDB.domain.PessoaDestino;
+
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "dstEntityManagerFactory", transactionManagerRef = "dstTransactionManager", basePackages = "br.mp.mpf.twodb.dstDB.repo")
@@ -26,14 +28,18 @@ public class ConfigDstDB {
 	@Bean(name = "dstDataSource")
 	@ConfigurationProperties(prefix = "destino.datasource")
 	public DataSource dataSource() {
-		return DataSourceBuilder.create().build();
+		DataSource x = DataSourceBuilder.create().build();
+		return x;
 	}
 
 	@Bean(name = "dstEntityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean dstEntityManagerFactory(EntityManagerFactoryBuilder builder,
 			@Qualifier("dstDataSource") DataSource dataSource) {
-		return builder.dataSource(dataSource).packages("br.mp.mpf.twodb.dstDB.domain")
-				.properties(hibernateDefaultProperties()).persistenceUnit("dstDB").build();
+		return builder.dataSource(dataSource)
+				//.packages("br.mp.mpf.twodb.dstDB.domain")				
+				//.properties(hibernateDefaultProperties())
+				.packages(PessoaDestino.class)
+				.persistenceUnit("dstDB").build();
 	}
 
 	@Bean(name = "dstTransactionManager")
